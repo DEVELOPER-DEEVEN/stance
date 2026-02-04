@@ -40,6 +40,7 @@ actor ReasoningPipeline {
         claim.reframedText = objective
         claim.evidence = weightedEvidence
         claim.relatedArticles = articles ?? []
+        claim.strategy = strategy
         claim.methodology = methodology
         claim.confidenceScore = confidence
         claim.status = .complete

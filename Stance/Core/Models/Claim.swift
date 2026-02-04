@@ -7,6 +7,7 @@ final class Claim {
     var originalText: String
     var reframedText: String?
     var confidenceScore: Double // 0.0 - 1.0
+    var strategy: String?
     var methodology: String?
     var selectedMode: ScenarioMode?
     var createdAt: Date

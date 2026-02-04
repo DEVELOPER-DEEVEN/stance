@@ -153,7 +153,7 @@ struct AnalysisDetailView: View {
                 
                 // Strategic Recommendation
                 StrategyView(
-                    strategy: "Stance has identified \(claim.evidence.count) key supportive vectors. Leverage economic upside metrics while contextually reframing risk factors.",
+                    strategy: claim.strategy ?? "Stance has identified \(claim.evidence.count) key supportive vectors. Leverage economic upside metrics while contextually reframing risk factors.",
                     confidence: claim.confidenceScore > 0 ? claim.confidenceScore : 0.82
                 )
             }
