@@ -26,10 +26,12 @@ struct DashboardView: View {
                 
                 if claims.isEmpty {
                     Spacer()
-                    ContentUnavailableView(
-                        "No Stances Active",
-                        systemImage: "scale.3d",
-                        description: Text("Start a new analysis to advocate for your position.")
+                    EmptyStateView(
+                        icon: "scale.3d",
+                        title: "No Stances Active",
+                        message: "Start a new analysis to advocate for your position.",
+                        action: { showNewAnalysis = true },
+                        actionLabel: "New Analysis"
                     )
                     Spacer()
                 } else {
