@@ -2,13 +2,18 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) var sizeClass
+    @AppStorage("isOnboardingComplete") var isOnboardingComplete: Bool = false
     
     var body: some View {
         Group {
-            if sizeClass == .regular {
-                SplitLayoutView()
+            if !isOnboardingComplete {
+                OnboardingView(isOnboardingComplete: $isOnboardingComplete)
             } else {
-                DashboardView()
+                if sizeClass == .regular {
+                    SplitLayoutView()
+                } else {
+                    DashboardView()
+                }
             }
         }
         .preferredColorScheme(.dark)
