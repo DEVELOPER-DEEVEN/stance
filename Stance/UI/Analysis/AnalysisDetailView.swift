@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct AnalysisDetailView: View {
-    let claim: Claim
-    
+    @State private var showShareSheet = false
+    @State private var pdfURL: URL?
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
@@ -90,5 +91,24 @@ struct AnalysisDetailView: View {
         .background(StanceTheme.background.edgesIgnoringSafeArea(.all))
         .navigationTitle("Analysis")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: generateAndShare) {
+                    Label("Export PDF", systemImage: "square.and.arrow.up")
+                }
+            }
+        }
+        .sheet(isPresented: $showShareSheet) {
+            if let url = pdfURL {
+                ReportShareSheet(activityItems: [url])
+            }
+        }
+    }
+    
+    private func generateAndShare() {
+        if let url = PDFComposer.render(claim: claim) {
+            self.pdfURL = url
+            self.showShareSheet = true
+        }
     }
 }
