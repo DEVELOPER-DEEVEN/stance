@@ -49,6 +49,35 @@ Advocate. Always.
 
 ---
 
+## Premium Use Cases
+Stance is designed for high‑stakes advocacy where framing and evidence quality change outcomes.
+
+**Executive & Board Decisions**
+- Capital allocation proposals with defensible upside framing.
+- Strategic pivots with risk‑adjusted justification.
+
+**Investment & Portfolio**
+- Positioning narratives for LP updates.
+- Comparative thesis support (relative vs. absolute performance).
+
+**Legal & Policy**
+- Compliance‑aligned arguments with proxy metrics.
+- Scenario‑based justification for regulatory proposals.
+
+**Product & Go‑To‑Market**
+- Pricing strategy backed by adoption curves and proxy demand signals.
+- Market entry advocacy with region‑specific metrics.
+
+**Operations & Cost Optimization**
+- Cost‑reduction initiatives framed as efficiency growth.
+- Vendor selection with scenario‑weighted outcomes.
+
+**Founder / CEO Narratives**
+- Fundraising decks with tailored strategic positioning.
+- Reputation‑sensitive decisions framed through long‑term impact.
+
+---
+
 ## Capabilities (Current)
 - **Scenario Modes**
   - Optimistic (growth‑weighted)
