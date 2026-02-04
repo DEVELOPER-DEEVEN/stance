@@ -1,3 +1,4 @@
+#if os(iOS)
 import UIKit
 
 struct HapticManager {
@@ -27,3 +28,15 @@ struct HapticManager {
         if isEnabled { notification.notificationOccurred(.error) }
     }
 }
+#else
+import Foundation
+
+struct HapticManager {
+    static let shared = HapticManager()
+    
+    func playImpactLight() {}
+    func playImpactMedium() {}
+    func playSuccess() {}
+    func playError() {}
+}
+#endif
