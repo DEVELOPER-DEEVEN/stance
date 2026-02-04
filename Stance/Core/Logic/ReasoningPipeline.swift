@@ -34,12 +34,14 @@ actor ReasoningPipeline {
         // Step 5: Synthesis
         let strategy = synthesizeStrategy(from: weightedEvidence)
         let methodology = generateMethodology(mode: mode)
+        let confidence = ConfidenceCalculator.calculate(evidence: weightedEvidence, parameters: parameters)
         
         // Update Model
         claim.reframedText = objective
         claim.evidence = weightedEvidence
         claim.relatedArticles = articles ?? []
         claim.methodology = methodology
+        claim.confidenceScore = confidence
         claim.status = .complete
         
         return AnalysisResult(
