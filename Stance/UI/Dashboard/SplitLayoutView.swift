@@ -82,9 +82,15 @@ struct SplitLayoutView: View {
                 )
             }
         }
+#if os(iOS)
+        .fullScreenCover(isPresented: $showNewAnalysis) {
+            NewAnalysisView()
+        }
+#else
         .sheet(isPresented: $showNewAnalysis) {
             NewAnalysisView()
         }
+#endif
         .sheet(isPresented: $showSettings) {
             SettingsView()
         }
