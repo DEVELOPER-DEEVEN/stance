@@ -25,7 +25,7 @@ struct DashboardView: View {
                 } else {
                     List {
                         ForEach(claims) { claim in
-                            NavigationLink(destination: Text("Analysis for: \(claim.originalText)")) {
+                            NavigationLink(destination: AnalysisDetailView(claim: claim)) {
                                 VStack(alignment: .leading) {
                                     Text(claim.originalText)
                                         .font(.headline)
