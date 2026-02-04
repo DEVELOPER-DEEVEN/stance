@@ -36,15 +36,7 @@ struct DashboardView: View {
                     List {
                         ForEach(claims) { claim in
                             NavigationLink(destination: AnalysisDetailView(claim: claim)) {
-                                VStack(alignment: .leading) {
-                                    Text(claim.originalText)
-                                        .font(.headline)
-                                        .foregroundColor(StanceTheme.textPrimary)
-                                    Text(claim.status.rawValue.capitalized)
-                                        .font(.caption)
-                                        .foregroundColor(StanceTheme.textSecondary)
-                                }
-                                .padding(.vertical, 8)
+                                AnalysisRowView(claim: claim)
                             }
                             .listRowBackground(StanceTheme.surface)
                             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
