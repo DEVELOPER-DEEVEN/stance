@@ -161,7 +161,9 @@ struct AnalysisDetailView: View {
         }
         .background(StanceTheme.background.edgesIgnoringSafeArea(.all))
         .navigationTitle("Analysis")
+#if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+#endif
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: generateAndShare) {

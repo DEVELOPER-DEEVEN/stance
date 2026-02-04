@@ -1,11 +1,18 @@
 import Foundation
 import CoreGraphics
+#if canImport(UIKit)
+import UIKit
+typealias PlatformColor = UIColor
+#elseif canImport(AppKit)
+import AppKit
+typealias PlatformColor = NSColor
+#endif
 
 struct ChartRenderer {
     
     func render(evidence: Evidence, in rect: CGRect, context: CGContext) {
         // Draw Background
-        context.setFillColor(UIColor.systemGray6.cgColor)
+        context.setFillColor(PlatformColor.systemGray.cgColor)
         context.fill(rect)
         
         guard !evidence.dataPoints.isEmpty else { return }
@@ -34,7 +41,7 @@ struct ChartRenderer {
         
         // Draw Line
         context.addPath(path)
-        context.setStrokeColor(UIColor.systemBlue.cgColor)
+        context.setStrokeColor(PlatformColor.systemBlue.cgColor)
         context.setLineWidth(2.0)
         context.strokePath()
     }
