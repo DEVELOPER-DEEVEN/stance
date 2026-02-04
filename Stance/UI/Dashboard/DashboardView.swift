@@ -3,16 +3,23 @@ import SwiftUI
 struct DashboardView: View {
     @Query(sort: \Claim.createdAt, order: .reverse) var claims: [Claim]
     @State private var showNewAnalysis = false
+    @State private var showSettings = false
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                Text("Stance")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                    .foregroundStyle(StanceTheme.primaryGradient)
+                HStack {
+                    Text("Stance")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundStyle(StanceTheme.primaryGradient)
+                    Spacer()
+                    Button(action: { showSettings = true }) {
+                        Image(systemName: "gearshape")
+                            .foregroundColor(StanceTheme.textSecondary)
+                    }
+                }
+                .padding()
                 
                 if claims.isEmpty {
                     Spacer()
@@ -56,6 +63,9 @@ struct DashboardView: View {
             .background(StanceTheme.background.edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $showNewAnalysis) {
                 NewAnalysisView()
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
             }
         }
     }
