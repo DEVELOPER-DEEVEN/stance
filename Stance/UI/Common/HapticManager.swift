@@ -7,19 +7,23 @@ struct HapticManager {
     private let impactMedium = UIImpactFeedbackGenerator(style: .medium)
     private let notification = UINotificationFeedbackGenerator()
     
+    private var isEnabled: Bool {
+        UserDefaults.standard.bool(forKey: "enableHaptics")
+    }
+    
     func playImpactLight() {
-        impactLight.impactOccurred()
+        if isEnabled { impactLight.impactOccurred() }
     }
     
     func playImpactMedium() {
-        impactMedium.impactOccurred()
+        if isEnabled { impactMedium.impactOccurred() }
     }
     
     func playSuccess() {
-        notification.notificationOccurred(.success)
+        if isEnabled { notification.notificationOccurred(.success) }
     }
     
     func playError() {
-        notification.notificationOccurred(.error)
+        if isEnabled { notification.notificationOccurred(.error) }
     }
 }
