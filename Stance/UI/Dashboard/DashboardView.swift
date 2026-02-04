@@ -11,62 +11,82 @@ struct DashboardView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-                HStack {
-                    Text("Stance")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundStyle(StanceTheme.primaryGradient)
-                    Spacer()
-                    Button(action: { showSettings = true }) {
-                        Image(systemName: "gearshape")
-                            .foregroundColor(StanceTheme.textSecondary)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    // Top Bar
+                    HStack {
+                        Text("Stance")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundStyle(StanceTheme.primaryGradient)
+                        Spacer()
+                        Button(action: { showSettings = true }) {
+                            Image(systemName: "gearshape")
+                                .foregroundColor(StanceTheme.textSecondary)
+                                .padding(8)
+                                .background(StanceTheme.surfaceElevated)
+                                .clipShape(Circle())
+                        }
                     }
-                }
-                .padding()
-                
-                if claims.isEmpty {
-                    Spacer()
-                    EmptyStateView(
-                        icon: "scale.3d",
-                        title: "No Stances Active",
-                        message: "Start a new analysis to advocate for your position.",
-                        action: { showNewAnalysis = true },
-                        actionLabel: "New Analysis"
-                    )
-                    Spacer()
-                } else {
-                    List {
-                        ForEach(claims) { claim in
-                            NavigationLink(destination: AnalysisDetailView(claim: claim)) {
-                                AnalysisRowView(claim: claim)
+                    
+                    // Hero Card
+                    SpotifyCard(title: "Decision Advocacy", subtitle: "Premium Intelligence") {
+                        Text("Convert any position into a defensible, data-backed advantage.")
+                            .font(.subheadline)
+                            .foregroundColor(StanceTheme.textSecondary)
+                            .lineSpacing(3)
+                        
+                        Button(action: { showNewAnalysis = true }) {
+                            HStack {
+                                Image(systemName: "sparkles")
+                                Text("New Analysis")
                             }
-                            .listRowBackground(StanceTheme.surface)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                Button(role: .destructive) {
-                                    claimToDelete = claim
-                                    showDeleteConfirm = true
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                            .background(StanceTheme.primaryGradient)
+                            .cornerRadius(12)
+                        }
+                        .padding(.top, 8)
+                    }
+                    
+                    if claims.isEmpty {
+                        SpotifyCard(title: "No Active Stances", subtitle: "Start your first analysis") {
+                            Text("Stance will construct the strongest possible case for your position.")
+                                .font(.subheadline)
+                                .foregroundColor(StanceTheme.textSecondary)
+                        }
+                    } else {
+                        SectionHeader("Recent Analyses")
+                        
+                        LazyVStack(spacing: 12) {
+                            ForEach(claims.prefix(5)) { claim in
+                                NavigationLink(destination: AnalysisDetailView(claim: claim)) {
+                                    AnalysisRowView(claim: claim)
+                                        .padding()
+                                        .background(StanceTheme.surfaceElevated)
+                                        .cornerRadius(16)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 16)
+                                                .stroke(StanceTheme.surfaceHighlight, lineWidth: 1)
+                                        )
+                                }
+                                .buttonStyle(.plain)
+                                .contextMenu {
+                                    Button(role: .destructive) {
+                                        claimToDelete = claim
+                                        showDeleteConfirm = true
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
                                 }
                             }
                         }
                     }
-                    .scrollContentBackground(.hidden)
                 }
-                
-                if !claims.isEmpty {
-                    Button(action: { showNewAnalysis = true }) {
-                        Text("New Analysis")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(StanceTheme.primaryGradient)
-                            .cornerRadius(12)
-                    }
-                    .padding()
-                }
+                .padding(.horizontal, 20)
+                .padding(.top, 10)
             }
             .background(StanceTheme.background.edgesIgnoringSafeArea(.all))
 #if os(iOS)

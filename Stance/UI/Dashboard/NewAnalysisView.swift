@@ -22,35 +22,31 @@ struct NewAnalysisView: View {
                     .font(.body)
                     .foregroundColor(StanceTheme.textSecondary)
                 
-                ZStack(alignment: .bottomTrailing) {
-                    TextEditor(text: $claimText)
-                        .scrollContentBackground(.hidden)
-                        .padding()
-                        .background(StanceTheme.surface)
-                        .cornerRadius(StanceTheme.cornerRadius)
-                        .frame(height: 120)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: StanceTheme.cornerRadius)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                        )
-                    
-                    // Mic Button
-                    Button(action: toggleRecording) {
-                        Image(systemName: speechRecognizer.isRecording ? "waveform.circle.fill" : "mic.circle.fill")
-                            .resizable()
-                            .frame(width: 44, height: 44)
-                            .foregroundStyle(speechRecognizer.isRecording ? Color.red : StanceTheme.accent)
-                            .background(Circle().fill(StanceTheme.background))
+                SpotifyCard(title: "Your Stance", subtitle: "Type or dictate") {
+                    ZStack(alignment: .bottomTrailing) {
+                        TextEditor(text: $claimText)
+                            .scrollContentBackground(.hidden)
+                            .padding()
+                            .background(StanceTheme.surface)
+                            .cornerRadius(StanceTheme.cornerRadius)
+                            .frame(height: 140)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: StanceTheme.cornerRadius)
+                                    .stroke(StanceTheme.surfaceHighlight, lineWidth: 1)
+                            )
+                        
+                        Button(action: toggleRecording) {
+                            Image(systemName: speechRecognizer.isRecording ? "waveform.circle.fill" : "mic.circle.fill")
+                                .resizable()
+                                .frame(width: 44, height: 44)
+                                .foregroundStyle(speechRecognizer.isRecording ? Color.red : StanceTheme.accent)
+                                .background(Circle().fill(StanceTheme.surfaceElevated))
+                        }
+                        .padding(8)
                     }
-                    .padding(8)
                 }
                 
-                // Scenario Mode Picker
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Advocacy Aggression")
-                        .font(.headline)
-                        .foregroundColor(StanceTheme.textPrimary)
-                    
+                SpotifyCard(title: "Advocacy Aggression", subtitle: selectedMode.description) {
                     Picker("Mode", selection: $selectedMode) {
                         ForEach(ScenarioMode.allCases) { mode in
                             Text(mode.rawValue).tag(mode)
@@ -60,14 +56,7 @@ struct NewAnalysisView: View {
                     .onChange(of: selectedMode) { _ in
                         HapticManager.shared.playImpactLight()
                     }
-                    
-                    Text(selectedMode.description)
-                        .font(.caption)
-                        .foregroundColor(StanceTheme.textSecondary)
-                        .animation(.easeInOut, value: selectedMode)
                 }
-                
-                Spacer()
                 
                 Button(action: startAnalysis) {
                     HStack {
@@ -81,9 +70,9 @@ struct NewAnalysisView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(claimText.isEmpty ? Color.gray : StanceTheme.primaryMiddle)
+                    .background(claimText.isEmpty ? Color.gray : StanceTheme.primaryGradient)
                     .foregroundColor(.white)
-                    .cornerRadius(StanceTheme.cornerRadius)
+                    .cornerRadius(StanceTheme.cornerRadiusLarge)
                 }
                 .disabled(claimText.isEmpty || isAnalyzing)
             }
