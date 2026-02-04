@@ -12,11 +12,11 @@ struct AppShelliOS: View {
                 case .home:
                     VisionHomeView()
                 case .insights:
-                    InsightsView()
+                    VisionInsightsView()
                 case .reports:
-                    ReportsView()
+                    VisionReportsView()
                 case .settings:
-                    SettingsView()
+                    VisionSettingsView()
                 }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {

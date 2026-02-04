@@ -45,7 +45,7 @@ struct VisionHomeView: View {
                     }
                 }
                 .padding(24)
-                .padding(.bottom, 100)
+                .padding(.bottom, 140)
             }
         }
 #if os(iOS)
