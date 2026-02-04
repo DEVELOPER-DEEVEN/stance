@@ -18,7 +18,7 @@ struct VisionReportsView: View {
                     VisionReportCard(title: "Templates", subtitle: "Executive • Investor • Policy")
                 }
                 .padding(24)
-                .padding(.bottom, 120)
+                .padding(.bottom, 180)
             }
         }
     }
