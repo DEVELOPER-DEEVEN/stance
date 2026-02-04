@@ -19,17 +19,19 @@ struct AppShelliOS: View {
                     SettingsView()
                 }
             }
-            .safeAreaInset(edge: .top) {
+            .safeAreaInset(edge: .top, spacing: 0) {
                 DynamicIslandView(
                     title: "Stance",
                     subtitle: "Decision Advocacy",
                     actionTitle: "Settings",
                     action: { selection = .settings }
                 )
-                .padding(.top, 6)
+                .padding(.top, 4)
+                .padding(.horizontal, 14)
             }
             
             BottomBar(selection: $selection)
+                .padding(.bottom, 8)
         }
         .ignoresSafeArea(edges: .bottom)
     }

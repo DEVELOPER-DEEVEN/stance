@@ -25,7 +25,7 @@ struct SpotifyCard<Content: View>: View {
             }
             content
         }
-        .padding()
+        .padding(18)
         .background(StanceTheme.surfaceElevated)
         .cornerRadius(StanceTheme.cornerRadiusLarge)
         .overlay(

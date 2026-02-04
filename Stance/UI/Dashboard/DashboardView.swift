@@ -69,9 +69,9 @@ struct DashboardView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 16)
-                .padding(.bottom, 90)
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                .padding(.bottom, 120)
             }
             .background(StanceTheme.background.ignoresSafeArea())
 #if os(iOS)

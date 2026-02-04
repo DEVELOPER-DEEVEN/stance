@@ -26,11 +26,11 @@ struct DynamicIslandView: View {
                     .foregroundColor(StanceTheme.accent)
             }
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 8)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
         .background(
             Capsule()
-                .fill(StanceTheme.surfaceElevated)
+                .fill(StanceTheme.surfaceElevated.opacity(0.95))
                 .overlay(
                     Capsule().stroke(StanceTheme.surfaceHighlight, lineWidth: 1)
                 )

@@ -25,8 +25,8 @@ struct BottomBar: View {
                 .fill(StanceTheme.surfaceElevated)
                 .overlay(Capsule().stroke(StanceTheme.surfaceHighlight, lineWidth: 1))
         )
-        .padding(.horizontal, 20)
-        .padding(.bottom, 12)
+        .padding(.horizontal, 16)
+        .padding(.bottom, 10)
     }
 }
 
