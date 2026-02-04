@@ -12,7 +12,7 @@ struct DashboardView: View {
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                    .foregroundColor(StanceTheme.textPrimary)
+                    .foregroundStyle(StanceTheme.primaryGradient)
                 
                 if claims.isEmpty {
                     Spacer()
@@ -45,10 +45,10 @@ struct DashboardView: View {
                 Button(action: { showNewAnalysis = true }) {
                     Text("New Analysis")
                         .font(.headline)
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(StanceTheme.textPrimary)
+                        .background(StanceTheme.primaryGradient)
                         .cornerRadius(12)
                 }
                 .padding()
