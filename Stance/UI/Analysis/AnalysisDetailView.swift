@@ -18,6 +18,20 @@ struct AnalysisDetailView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(StanceTheme.textPrimary)
+                    
+                    if let mode = claim.selectedMode {
+                        Text(mode.rawValue.uppercased())
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(StanceTheme.surface)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .stroke(StanceTheme.accent, lineWidth: 1)
+                            )
+                            .foregroundColor(StanceTheme.accent)
+                    }
                 }
                 .padding()
                 .background(StanceTheme.surface)

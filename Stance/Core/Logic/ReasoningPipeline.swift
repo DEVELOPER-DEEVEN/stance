@@ -20,7 +20,8 @@ actor ReasoningPipeline {
         
         // Step 3: Pattern Discovery
         let discoverer = PatternDiscoverer()
-        let rawEvidence = await discoverer.discover(for: parameters)
+        let mode = claim.selectedMode ?? .optimistic
+        let rawEvidence = await discoverer.discover(for: parameters, mode: mode)
         
         // Step 4: Weighting
         let weighter = EvidenceWeighter()

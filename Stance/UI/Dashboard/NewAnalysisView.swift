@@ -5,6 +5,7 @@ struct NewAnalysisView: View {
     @Environment(\.modelContext) var modelContext
     
     @State private var claimText: String = ""
+    @State private var selectedMode: ScenarioMode = .optimistic
     @State private var isAnalyzing: Bool = false
     
     var body: some View {
@@ -24,11 +25,30 @@ struct NewAnalysisView: View {
                     .padding()
                     .background(StanceTheme.surface)
                     .cornerRadius(StanceTheme.cornerRadius)
-                    .frame(height: 150)
+                    .frame(height: 120)
                     .overlay(
                         RoundedRectangle(cornerRadius: StanceTheme.cornerRadius)
                             .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                     )
+                
+                // Scenario Mode Picker
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Advocacy Aggression")
+                        .font(.headline)
+                        .foregroundColor(StanceTheme.textPrimary)
+                    
+                    Picker("Mode", selection: $selectedMode) {
+                        ForEach(ScenarioMode.allCases) { mode in
+                            Text(mode.rawValue).tag(mode)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    
+                    Text(selectedMode.description)
+                        .font(.caption)
+                        .foregroundColor(StanceTheme.textSecondary)
+                        .animation(.easeInOut, value: selectedMode)
+                }
                 
                 Spacer()
                 
@@ -36,7 +56,7 @@ struct NewAnalysisView: View {
                     HStack {
                         if isAnalyzing {
                             ProgressView()
-                                .tint(.black)
+                                .tint(.white)
                         } else {
                             Text("Begin Advocacy")
                                 .fontWeight(.semibold)
@@ -44,8 +64,8 @@ struct NewAnalysisView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(claimText.isEmpty ? Color.gray : StanceTheme.textPrimary)
-                    .foregroundColor(.black)
+                    .background(claimText.isEmpty ? Color.gray : StanceTheme.primaryGradient)
+                    .foregroundColor(.white)
                     .cornerRadius(StanceTheme.cornerRadius)
                 }
                 .disabled(claimText.isEmpty || isAnalyzing)
@@ -66,7 +86,7 @@ struct NewAnalysisView: View {
         isAnalyzing = true
         
         // Simulate Logic Integration
-        let newClaim = Claim(originalText: claimText)
+        let newClaim = Claim(originalText: claimText, mode: selectedMode)
         modelContext.insert(newClaim)
         
         // In a real app, we'd trigger the ReasoningPipeline here

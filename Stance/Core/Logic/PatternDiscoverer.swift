@@ -5,12 +5,12 @@ struct PatternDiscoverer {
     let ingestionService: DataIngestionService = SimulatedIngestionService()
     
     // In a real app, this would use CoreML or simple regression on ingested data
-    func discover(for parameters: [Parameter]) async -> [Evidence] {
+    func discover(for parameters: [Parameter], mode: ScenarioMode) async -> [Evidence] {
         var discoveredEvidence: [Evidence] = []
         
         for param in parameters {
             // Fetch data from the service
-            if let dataPoints = try? await ingestionService.fetchTimeSeries(for: param.name, category: param.dimension) {
+            if let dataPoints = try? await ingestionService.fetchTimeSeries(for: param.name, category: param.dimension, mode: mode) {
                 
                 let trend = Evidence(
                     description: "Projected 12-Month Trajectory: \(param.name)",

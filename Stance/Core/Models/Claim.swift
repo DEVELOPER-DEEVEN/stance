@@ -8,6 +8,7 @@ final class Claim {
     var reframedText: String?
     var confidenceScore: Double // 0.0 - 1.0
     var methodology: String?
+    var selectedMode: ScenarioMode?
     var createdAt: Date
     var status: AnalysisStatus
     
@@ -18,9 +19,10 @@ final class Claim {
     // In a real app, we'd persist these as a separate entity 'AnalysisReport'
     @Transient var evidence: [Evidence] = []
     
-    init(originalText: String) {
+    init(originalText: String, mode: ScenarioMode = .optimistic) {
         self.id = UUID()
         self.originalText = originalText
+        self.selectedMode = mode
         self.confidenceScore = 0.0
         self.createdAt = Date()
         self.status = .draft
