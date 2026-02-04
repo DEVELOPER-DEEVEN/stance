@@ -1,9 +1,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     var body: some View {
-        DashboardView()
-            .preferredColorScheme(.dark) // Premium dark mode by default
+        Group {
+            if sizeClass == .regular {
+                SplitLayoutView()
+            } else {
+                DashboardView()
+            }
+        }
+        .preferredColorScheme(.dark)
     }
 }
 
