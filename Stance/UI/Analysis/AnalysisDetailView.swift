@@ -130,6 +130,25 @@ struct AnalysisDetailView: View {
                         .cornerRadius(12)
                     }
                 }
+                
+                // Methodology
+                if let methodology = claim.methodology {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Methodology & Assumptions")
+                            .font(.caption)
+                            .textCase(.uppercase)
+                            .foregroundColor(StanceTheme.textSecondary)
+                        
+                        Text(methodology)
+                            .font(.caption)
+                            .italic()
+                            .foregroundColor(StanceTheme.textSecondary)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(StanceTheme.surface)
+                            .cornerRadius(StanceTheme.cornerRadius)
+                    }
+                }
             }
             .padding()
         }
