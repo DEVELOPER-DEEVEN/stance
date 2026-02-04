@@ -28,7 +28,7 @@ struct AnalysisDetailView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Label("Strategic Reframing", systemImage: "arrow.triangle.2.circlepath")
                             .font(.headline)
-                            .foregroundColor(StanceTheme.accent)
+                            .foregroundStyle(StanceTheme.primaryGradient)
                         
                         Text(reframed)
                             .font(.body)
