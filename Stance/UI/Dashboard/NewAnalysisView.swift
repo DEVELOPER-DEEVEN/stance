@@ -4,6 +4,7 @@ struct NewAnalysisView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
     
+    @StateObject private var speechRecognizer = SpeechRecognizer()
     @State private var claimText: String = ""
     @State private var selectedMode: ScenarioMode = .optimistic
     @State private var isAnalyzing: Bool = false
@@ -20,16 +21,28 @@ struct NewAnalysisView: View {
                     .font(.body)
                     .foregroundColor(StanceTheme.textSecondary)
                 
-                TextEditor(text: $claimText)
-                    .scrollContentBackground(.hidden)
-                    .padding()
-                    .background(StanceTheme.surface)
-                    .cornerRadius(StanceTheme.cornerRadius)
-                    .frame(height: 120)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: StanceTheme.cornerRadius)
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                    )
+                ZStack(alignment: .bottomTrailing) {
+                    TextEditor(text: $claimText)
+                        .scrollContentBackground(.hidden)
+                        .padding()
+                        .background(StanceTheme.surface)
+                        .cornerRadius(StanceTheme.cornerRadius)
+                        .frame(height: 120)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: StanceTheme.cornerRadius)
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        )
+                    
+                    // Mic Button
+                    Button(action: toggleRecording) {
+                        Image(systemName: speechRecognizer.isRecording ? "waveform.circle.fill" : "mic.circle.fill")
+                            .resizable()
+                            .frame(width: 44, height: 44)
+                            .foregroundStyle(speechRecognizer.isRecording ? Color.red : StanceTheme.accent)
+                            .background(Circle().fill(StanceTheme.background))
+                    }
+                    .padding(8)
+                }
                 
                 // Scenario Mode Picker
                 VStack(alignment: .leading, spacing: 12) {
@@ -82,6 +95,23 @@ struct NewAnalysisView: View {
                     Button("Cancel") { dismiss() }
                 }
             }
+            .onAppear {
+                speechRecognizer.requestAuthorization()
+            }
+            .onChange(of: speechRecognizer.transcript) { newValue in
+                if !newValue.isEmpty {
+                    claimText = newValue
+                }
+            }
+        }
+    }
+    
+    private func toggleRecording() {
+        HapticManager.shared.playImpactMedium()
+        if speechRecognizer.isRecording {
+            speechRecognizer.stopTranscribing()
+        } else {
+            speechRecognizer.startTranscribing()
         }
     }
     
