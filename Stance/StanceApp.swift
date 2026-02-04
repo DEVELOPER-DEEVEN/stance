@@ -5,7 +5,8 @@ import SwiftData
 struct StanceApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            // Entities will be added here
+            Claim.self,
+            Parameter.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
