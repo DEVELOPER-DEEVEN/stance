@@ -55,16 +55,18 @@ struct DashboardView: View {
                     .scrollContentBackground(.hidden)
                 }
                 
-                Button(action: { showNewAnalysis = true }) {
-                    Text("New Analysis")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(StanceTheme.primaryGradient)
-                        .cornerRadius(12)
+                if !claims.isEmpty {
+                    Button(action: { showNewAnalysis = true }) {
+                        Text("New Analysis")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(StanceTheme.primaryGradient)
+                            .cornerRadius(12)
+                    }
+                    .padding()
                 }
-                .padding()
             }
             .background(StanceTheme.background.edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $showNewAnalysis) {
