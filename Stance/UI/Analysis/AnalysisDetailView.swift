@@ -171,7 +171,7 @@ struct AnalysisDetailView: View {
         }
         .sheet(isPresented: $showShareSheet) {
             if let url = pdfURL {
-                ReportShareSheet(activityItems: [url])
+                ReportShareSheet(url: url)
             }
         }
     }
