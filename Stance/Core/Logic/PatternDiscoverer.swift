@@ -12,8 +12,10 @@ struct PatternDiscoverer {
             // Fetch data from the service
             if let dataPoints = try? await ingestionService.fetchTimeSeries(for: param.name, category: param.dimension, mode: mode) {
                 
+                let metricName = MockDataEngine.generateMetricName(category: param.dimension)
+                
                 let trend = Evidence(
-                    description: "Projected 12-Month Trajectory: \(param.name)",
+                    description: "Projected 12-Month \(metricName)",
                     dataPoints: dataPoints.map { $0.value },
                     confidence: Double.random(in: 0.75...0.98), // High confidence for advocacy
                     type: .trend
