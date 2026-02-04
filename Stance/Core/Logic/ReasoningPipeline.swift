@@ -15,11 +15,13 @@ actor ReasoningPipeline {
         let expander = ParameterExpander()
         let parameters = await expander.expand(for: objective)
         
-        // Step 3: Pattern Discovery (Mocked for now)
-        let evidence = await discoverPatterns(for: parameters)
+        // Step 3: Pattern Discovery
+        let discoverer = PatternDiscoverer()
+        let rawEvidence = await discoverer.discover(for: parameters)
         
         // Step 4: Weighting
-        let weightedEvidence = applyAdvocacyWeights(evidence)
+        let weighter = EvidenceWeighter()
+        let weightedEvidence = weighter.weight(evidence: rawEvidence)
         
         // Step 5: Synthesis
         let strategy = synthesizeStrategy(from: weightedEvidence)
@@ -27,25 +29,20 @@ actor ReasoningPipeline {
         return AnalysisResult(
             objective: objective,
             parameters: parameters,
+            evidence: weightedEvidence,
             strategy: strategy
         )
     }
     
-    private func discoverPatterns(for params: [Parameter]) async -> [String] {
-        return []
-    }
-    
-    private func applyAdvocacyWeights(_ evidence: [String]) -> [String] {
-        return evidence
-    }
-    
-    private func synthesizeStrategy(from evidence: [String]) -> String {
-        return "Strategic recommendations based on advocacy."
+    private func synthesizeStrategy(from evidence: [Evidence]) -> String {
+        let count = evidence.count
+        return "Stance has identified \(count) key supportive vectors. Primary driver is trend analysis indicating positive correlation with the proposed objective. Recommendation: Leverage economic upside metrics while contextually reframing risk factors."
     }
 }
 
 struct AnalysisResult {
     let objective: String
     let parameters: [Parameter]
+    let evidence: [Evidence]
     let strategy: String
 }
