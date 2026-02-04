@@ -6,6 +6,8 @@ final class Claim {
     var id: UUID
     var originalText: String
     var reframedText: String?
+    var confidenceScore: Double // 0.0 - 1.0
+    var methodology: String?
     var createdAt: Date
     var status: AnalysisStatus
     
@@ -15,6 +17,7 @@ final class Claim {
     init(originalText: String) {
         self.id = UUID()
         self.originalText = originalText
+        self.confidenceScore = 0.0
         self.createdAt = Date()
         self.status = .draft
     }
