@@ -2,10 +2,14 @@ import SwiftUI
 
 struct SplitLayoutView: View {
     @Query(sort: \Claim.createdAt, order: .reverse) var claims: [Claim]
+    @Environment(\.modelContext) var modelContext
     @State private var selectedClaim: Claim?
     @State private var searchText = ""
     @State private var columnVisibility = NavigationSplitViewVisibility.all
     @State private var showNewAnalysis = false
+    @State private var showSettings = false
+    @State private var claimToDelete: Claim?
+    @State private var showDeleteConfirm = false
 
     var filteredClaims: [Claim] {
         if searchText.isEmpty {
@@ -19,20 +23,31 @@ struct SplitLayoutView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             // Sidebar
             List(selection: $selectedClaim) {
-                Section(header: Text("Active Analyses")) {
-                    ForEach(filteredClaims) { claim in
-                        NavigationLink(value: claim) {
-                            VStack(alignment: .leading) {
-                                Text(claim.originalText)
-                                    .font(.headline)
-                                    .lineLimit(1)
-                                    .foregroundColor(StanceTheme.textPrimary)
-                                Text(claim.status.rawValue.capitalized)
-                                    .font(.caption)
-                                    .foregroundColor(StanceTheme.textSecondary)
+                if filteredClaims.isEmpty {
+                    EmptyStateView(
+                        icon: "magnifyingglass",
+                        title: "No Results",
+                        message: "Try a different search or create a new analysis.",
+                        action: { showNewAnalysis = true },
+                        actionLabel: "New Analysis"
+                    )
+                    .listRowBackground(StanceTheme.background)
+                } else {
+                    Section(header: Text("Active Analyses")) {
+                        ForEach(filteredClaims) { claim in
+                            NavigationLink(value: claim) {
+                                AnalysisRowView(claim: claim)
+                            }
+                            .listRowBackground(StanceTheme.surface)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    claimToDelete = claim
+                                    showDeleteConfirm = true
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
                             }
                         }
-                        .listRowBackground(StanceTheme.surface)
                     }
                 }
             }
@@ -41,6 +56,11 @@ struct SplitLayoutView: View {
             .scrollContentBackground(.hidden)
             .background(StanceTheme.background)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { showSettings = true }) {
+                        Image(systemName: "gearshape")
+                    }
+                }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: { showNewAnalysis = true }) {
                         Label("New Analysis", systemImage: "plus")
@@ -61,6 +81,20 @@ struct SplitLayoutView: View {
         }
         .sheet(isPresented: $showNewAnalysis) {
             NewAnalysisView()
+        }
+        .sheet(isPresented: $showSettings) {
+            SettingsView()
+        }
+        .alert("Delete Analysis?", isPresented: $showDeleteConfirm) {
+            Button("Cancel", role: .cancel) { claimToDelete = nil }
+            Button("Delete", role: .destructive) {
+                if let claim = claimToDelete {
+                    modelContext.delete(claim)
+                    claimToDelete = nil
+                }
+            }
+        } message: {
+            Text("This action cannot be undone.")
         }
     }
 }
