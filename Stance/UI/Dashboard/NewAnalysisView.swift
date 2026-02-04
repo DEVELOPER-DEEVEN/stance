@@ -70,9 +70,10 @@ struct NewAnalysisView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(claimText.isEmpty ? Color.gray : StanceTheme.primaryGradient)
+                    .background(StanceTheme.primaryGradient)
                     .foregroundColor(.white)
                     .cornerRadius(StanceTheme.cornerRadiusLarge)
+                    .opacity(claimText.isEmpty ? 0.5 : 1.0)
                 }
                 .disabled(claimText.isEmpty || isAnalyzing)
             }
