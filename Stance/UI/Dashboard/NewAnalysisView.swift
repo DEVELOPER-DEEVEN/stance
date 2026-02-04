@@ -81,7 +81,7 @@ struct NewAnalysisView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(claimText.isEmpty ? Color.gray : StanceTheme.primaryGradient)
+                    .background(claimText.isEmpty ? Color.gray : StanceTheme.primaryMiddle)
                     .foregroundColor(.white)
                     .cornerRadius(StanceTheme.cornerRadius)
                 }
