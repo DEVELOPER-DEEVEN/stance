@@ -78,11 +78,16 @@ struct DashboardView: View {
             .sheet(isPresented: $showSettings) {
                 SettingsView()
             }
-            .deleteConfirmation(isPresented: $showDeleteConfirm) {
-                if let claim = claimToDelete {
-                    modelContext.delete(claim)
-                    claimToDelete = nil
+            .alert("Delete Analysis?", isPresented: $showDeleteConfirm) {
+                Button("Cancel", role: .cancel) { claimToDelete = nil }
+                Button("Delete", role: .destructive) {
+                    if let claim = claimToDelete {
+                        modelContext.delete(claim)
+                        claimToDelete = nil
+                    }
                 }
+            } message: {
+                Text("This action cannot be undone.")
             }
         }
     }
