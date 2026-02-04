@@ -90,7 +90,9 @@ struct NewAnalysisView: View {
             .padding(StanceTheme.padding)
             .background(StanceTheme.background.edgesIgnoringSafeArea(.all))
             .navigationTitle("New Analysis")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
