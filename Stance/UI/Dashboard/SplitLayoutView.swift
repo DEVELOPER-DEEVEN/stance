@@ -57,11 +57,13 @@ struct SplitLayoutView: View {
             .scrollContentBackground(.hidden)
             .background(StanceTheme.background)
             .toolbar {
+#if os(iOS)
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: { showSettings = true }) {
                         Image(systemName: "gearshape")
                     }
                 }
+#endif
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: { showNewAnalysis = true }) {
                         Label("New Analysis", systemImage: "plus")

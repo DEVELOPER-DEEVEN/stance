@@ -36,7 +36,9 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button("Done") { dismiss() }
