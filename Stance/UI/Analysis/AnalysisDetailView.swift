@@ -38,6 +38,24 @@ struct AnalysisDetailView: View {
                     .cornerRadius(StanceTheme.cornerRadius)
                 }
                 
+                // Evidence Trends
+                if !claim.evidence.isEmpty {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("Trend Analysis")
+                            .font(.headline)
+                            .foregroundColor(StanceTheme.textPrimary)
+                        
+                        ForEach(claim.evidence) { item in
+                            HStack {
+                                TrendGraph(evidence: item, color: StanceTheme.accent)
+                            }
+                            .padding()
+                            .background(StanceTheme.surface)
+                            .cornerRadius(12)
+                        }
+                    }
+                }
+                
                 // Parameters
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Supportive Dimensions")
