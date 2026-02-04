@@ -20,8 +20,8 @@ struct VisionSettingsView: View {
                     VisionToggleRow(title: "Haptic Feedback", isOn: $enableHaptics)
                 }
                 .padding(24)
-                .padding(.bottom, 180)
             }
+            .visionBottomInset(140)
         }
     }
 }

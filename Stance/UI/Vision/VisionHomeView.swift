@@ -45,8 +45,8 @@ struct VisionHomeView: View {
                     }
                 }
                 .padding(24)
-                .padding(.bottom, 180)
             }
+            .visionBottomInset(140)
         }
 #if os(iOS)
         .fullScreenCover(isPresented: $showNewAnalysis) {
