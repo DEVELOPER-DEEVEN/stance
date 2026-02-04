@@ -14,6 +14,10 @@ final class Claim {
     // Relationships
     @Relationship(deleteRule: .cascade) var parameters: [Parameter] = []
     
+    // Non-persisted (transient) analysis results for the session
+    // In a real app, we'd persist these as a separate entity 'AnalysisReport'
+    @Transient var evidence: [Evidence] = []
+    
     init(originalText: String) {
         self.id = UUID()
         self.originalText = originalText
