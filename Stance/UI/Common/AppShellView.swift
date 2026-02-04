@@ -3,15 +3,20 @@ import SwiftUI
 struct AppShellView: View {
     var body: some View {
 #if os(iOS)
-        TabView {
-            DashboardView()
-                .tabItem { Label("Home", systemImage: "house.fill") }
-            InsightsView()
-                .tabItem { Label("Insights", systemImage: "chart.line.uptrend.xyaxis") }
-            ReportsView()
-                .tabItem { Label("Reports", systemImage: "doc.text.fill") }
-            SettingsView()
-                .tabItem { Label("Settings", systemImage: "gearshape") }
+        ZStack {
+            StanceTheme.background
+                .ignoresSafeArea()
+            TabView {
+                DashboardView()
+                    .tabItem { Label("Home", systemImage: "house.fill") }
+                InsightsView()
+                    .tabItem { Label("Insights", systemImage: "chart.line.uptrend.xyaxis") }
+                ReportsView()
+                    .tabItem { Label("Reports", systemImage: "doc.text.fill") }
+                SettingsView()
+                    .tabItem { Label("Settings", systemImage: "gearshape") }
+            }
+            .toolbarBackground(.hidden, for: .tabBar)
         }
 #else
         NavigationSplitView {
