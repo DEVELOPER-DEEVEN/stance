@@ -70,8 +70,8 @@ struct DashboardView: View {
                     }
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 8)
-                .padding(.bottom, 120)
+                .padding(.top, 12)
+                .padding(.bottom, 24)
             }
             .background(StanceTheme.background.ignoresSafeArea())
 #if os(iOS)

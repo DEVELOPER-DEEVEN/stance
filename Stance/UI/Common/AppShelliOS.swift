@@ -4,7 +4,7 @@ struct AppShelliOS: View {
     @State private var selection: AppTab = .home
     
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack {
             StanceTheme.background.ignoresSafeArea()
             
             Group {
@@ -29,10 +29,10 @@ struct AppShelliOS: View {
                 .padding(.top, 4)
                 .padding(.horizontal, 14)
             }
-            
-            BottomBar(selection: $selection)
-                .padding(.bottom, 8)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                BottomBar(selection: $selection)
+                    .padding(.bottom, 8)
+            }
         }
-        .ignoresSafeArea(edges: .bottom)
     }
 }
