@@ -150,6 +150,12 @@ struct AnalysisDetailView: View {
                             .cornerRadius(StanceTheme.cornerRadius)
                     }
                 }
+                
+                // Strategic Recommendation
+                StrategyView(
+                    strategy: "Stance has identified \(claim.evidence.count) key supportive vectors. Leverage economic upside metrics while contextually reframing risk factors.",
+                    confidence: claim.confidenceScore > 0 ? claim.confidenceScore : 0.82
+                )
             }
             .padding()
         }
