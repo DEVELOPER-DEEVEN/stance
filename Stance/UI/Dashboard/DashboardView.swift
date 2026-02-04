@@ -2,8 +2,11 @@ import SwiftUI
 
 struct DashboardView: View {
     @Query(sort: \Claim.createdAt, order: .reverse) var claims: [Claim]
+    @Environment(\.modelContext) var modelContext
     @State private var showNewAnalysis = false
     @State private var showSettings = false
+    @State private var claimToDelete: Claim?
+    @State private var showDeleteConfirm = false
     
     var body: some View {
         NavigationStack {
@@ -44,6 +47,14 @@ struct DashboardView: View {
                                 .padding(.vertical, 8)
                             }
                             .listRowBackground(StanceTheme.surface)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    claimToDelete = claim
+                                    showDeleteConfirm = true
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
                     }
                     .scrollContentBackground(.hidden)
@@ -66,6 +77,12 @@ struct DashboardView: View {
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()
+            }
+            .deleteConfirmation(isPresented: $showDeleteConfirm) {
+                if let claim = claimToDelete {
+                    modelContext.delete(claim)
+                    claimToDelete = nil
+                }
             }
         }
     }
