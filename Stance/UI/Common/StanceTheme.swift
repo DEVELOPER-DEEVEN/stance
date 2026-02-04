@@ -1,14 +1,31 @@
 import SwiftUI
 
 struct StanceTheme {
-    static let background = Color(hex: "0A0A0A")
-    static let surface = Color(hex: "1C1C1E")
-    static let accent = Color(hex: "007AFF") // Apple Blue, but we can tune it
+    // Background: Zinc 950
+    static let background = Color(hex: "09090B")
+    // Surface: Zinc 900
+    static let surface = Color(hex: "18181B")
+    
+    // Brand Gradient Colors
+    static let primaryStart = Color(hex: "6366F1") // Indigo
+    static let primaryMiddle = Color(hex: "8B5CF6") // Violet
+    static let primaryEnd = Color(hex: "A855F7")   // Purple
+    
+    static let accent = primaryMiddle
+    
     static let textPrimary = Color.white
-    static let textSecondary = Color.gray
+    static let textSecondary = Color(hex: "A1A1AA") // Zinc 400
     
     static let cornerRadius: CGFloat = 16
     static let padding: CGFloat = 20
+    
+    static var primaryGradient: LinearGradient {
+        LinearGradient(
+            colors: [primaryStart, primaryMiddle, primaryEnd],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
 }
 
 extension Color {
