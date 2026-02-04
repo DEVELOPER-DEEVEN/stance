@@ -13,21 +13,14 @@ struct DashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    // Top Bar
-                    HStack {
-                        Text("Stance")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundStyle(StanceTheme.primaryGradient)
-                        Spacer()
-                        Button(action: { showSettings = true }) {
-                            Image(systemName: "gearshape")
-                                .foregroundColor(StanceTheme.textSecondary)
-                                .padding(8)
-                                .background(StanceTheme.surfaceElevated)
-                                .clipShape(Circle())
-                        }
-                    }
+                    // Dynamic Island Header
+                    DynamicIslandView(
+                        title: "Stance",
+                        subtitle: "Decision Advocacy",
+                        actionTitle: "Settings",
+                        action: { showSettings = true }
+                    )
+                    .padding(.top, 6)
                     
                     // Hero Card
                     SpotifyCard(title: "Decision Advocacy", subtitle: "Premium Intelligence") {
@@ -86,9 +79,9 @@ struct DashboardView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 10)
+                .padding(.top, 20)
             }
-            .background(StanceTheme.background.edgesIgnoringSafeArea(.all))
+            .background(StanceTheme.background.ignoresSafeArea())
 #if os(iOS)
             .fullScreenCover(isPresented: $showNewAnalysis) {
                 NewAnalysisView()

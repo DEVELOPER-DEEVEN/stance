@@ -78,7 +78,7 @@ struct NewAnalysisView: View {
                 .disabled(claimText.isEmpty || isAnalyzing)
             }
             .padding(StanceTheme.padding)
-            .background(StanceTheme.background.edgesIgnoringSafeArea(.all))
+            .background(StanceTheme.background.ignoresSafeArea())
             .navigationTitle("New Analysis")
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
