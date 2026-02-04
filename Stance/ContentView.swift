@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.horizontalSizeClass) var sizeClass
     @AppStorage("isOnboardingComplete") var isOnboardingComplete: Bool = false
     
     var body: some View {
@@ -9,11 +8,7 @@ struct ContentView: View {
             if !isOnboardingComplete {
                 OnboardingView(isOnboardingComplete: $isOnboardingComplete)
             } else {
-                if sizeClass == .regular {
-                    SplitLayoutView()
-                } else {
-                    DashboardView()
-                }
+                AppShellView()
             }
         }
         .preferredColorScheme(.dark)
