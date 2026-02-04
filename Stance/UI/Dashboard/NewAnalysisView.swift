@@ -3,6 +3,7 @@ import SwiftUI
 struct NewAnalysisView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
+    @AppStorage("defaultMode") private var defaultMode: ScenarioMode = .optimistic
     
     @StateObject private var speechRecognizer = SpeechRecognizer()
     @State private var claimText: String = ""
@@ -97,6 +98,7 @@ struct NewAnalysisView: View {
             }
             .onAppear {
                 speechRecognizer.requestAuthorization()
+                selectedMode = defaultMode
             }
             .onChange(of: speechRecognizer.transcript) { newValue in
                 if !newValue.isEmpty {
