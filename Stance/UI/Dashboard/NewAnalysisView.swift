@@ -105,6 +105,12 @@ struct NewAnalysisView: View {
                     claimText = newValue
                 }
             }
+            .overlay {
+                if isAnalyzing {
+                    LoadingPipeline()
+                        .transition(.opacity)
+                }
+            }
         }
     }
     
@@ -120,16 +126,21 @@ struct NewAnalysisView: View {
     private func startAnalysis() {
         isAnalyzing = true
         
-        // Simulate Logic Integration
         let newClaim = Claim(originalText: claimText, mode: selectedMode)
+        newClaim.status = .processing
         modelContext.insert(newClaim)
         
-        // In a real app, we'd trigger the ReasoningPipeline here
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        Task {
+            do {
+                let pipeline = ReasoningPipeline()
+                _ = try await pipeline.analyze(claim: newClaim)
+                HapticManager.shared.playSuccess()
+                dismiss()
+            } catch {
+                newClaim.status = .error
+                HapticManager.shared.playError()
+            }
             isAnalyzing = false
-            HapticManager.shared.playSuccess()
-            dismiss()
         }
     }
 }
