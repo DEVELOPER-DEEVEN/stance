@@ -10,7 +10,7 @@ struct AppShelliOS: View {
             Group {
                 switch selection {
                 case .home:
-                    DashboardView()
+                    VisionHomeView()
                 case .insights:
                     InsightsView()
                 case .reports:
@@ -18,16 +18,6 @@ struct AppShelliOS: View {
                 case .settings:
                     SettingsView()
                 }
-            }
-            .safeAreaInset(edge: .top, spacing: 0) {
-                DynamicIslandView(
-                    title: "Stance",
-                    subtitle: "Decision Advocacy",
-                    actionTitle: "Settings",
-                    action: { selection = .settings }
-                )
-                .padding(.top, 4)
-                .padding(.horizontal, 14)
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 BottomBar(selection: $selection)
