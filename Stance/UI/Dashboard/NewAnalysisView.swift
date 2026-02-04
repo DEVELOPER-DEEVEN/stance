@@ -43,6 +43,9 @@ struct NewAnalysisView: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .onChange(of: selectedMode) { _ in
+                        HapticManager.shared.playImpactLight()
+                    }
                     
                     Text(selectedMode.description)
                         .font(.caption)
@@ -93,6 +96,7 @@ struct NewAnalysisView: View {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             isAnalyzing = false
+            HapticManager.shared.playSuccess()
             dismiss()
         }
     }
