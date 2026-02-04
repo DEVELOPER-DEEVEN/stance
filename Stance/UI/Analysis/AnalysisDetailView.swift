@@ -92,8 +92,9 @@ struct AnalysisDetailView: View {
                             .foregroundColor(StanceTheme.textPrimary)
                         
                         ForEach(claim.evidence) { item in
-                            HStack {
+                            VStack(alignment: .leading, spacing: 12) {
                                 TrendGraph(evidence: item, color: StanceTheme.accent)
+                                ConfidenceMeter(confidence: item.confidence, label: "Signal Strength")
                             }
                             .padding()
                             .background(StanceTheme.surface)
