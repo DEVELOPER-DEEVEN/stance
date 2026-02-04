@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct StanceTheme {
-    // Background: Zinc 950
-    static let background = Color(hex: "09090B")
-    static let surface = Color(hex: "18181B")
-    static let surfaceElevated = Color(hex: "1F1F23")
-    static let surfaceHighlight = Color(hex: "2A2A30")
+    // Base Colors (Dark/Light)
+    static let background = Color("StanceBackground")
+    static let surface = Color("StanceSurface")
+    static let surfaceElevated = Color("StanceSurfaceElevated")
+    static let surfaceHighlight = Color("StanceSurfaceHighlight")
     
     // Brand Gradient Colors
     static let primaryStart = Color(hex: "6366F1") // Indigo
@@ -14,9 +14,9 @@ struct StanceTheme {
     
     static let accent = primaryMiddle
     
-    static let textPrimary = Color.white
-    static let textSecondary = Color(hex: "A1A1AA") // Zinc 400
-    static let textMuted = Color(hex: "71717A")     // Zinc 500
+    static let textPrimary = Color("StanceTextPrimary")
+    static let textSecondary = Color("StanceTextSecondary")
+    static let textMuted = Color("StanceTextMuted")
     
     static let cornerRadius: CGFloat = 16
     static let cornerRadiusLarge: CGFloat = 24
