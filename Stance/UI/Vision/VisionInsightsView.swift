@@ -49,6 +49,7 @@ struct VisionInsightsView: View {
                     .padding(.top, 6)
                 }
                 .padding(24)
+                .padding(.bottom, 100)
             }
         }
     }
