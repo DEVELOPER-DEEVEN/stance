@@ -8,10 +8,12 @@ actor ReasoningPipeline {
     
     func analyze(claim: Claim) async throws -> AnalysisResult {
         // Step 1: Normalization
-        let objective = normalize(claim.originalText)
+        let normalizer = ClaimNormalizer()
+        let objective = normalizer.normalize(claim.originalText)
         
         // Step 2: Parameter Expansion
-        let parameters = await expandParameters(for: objective)
+        let expander = ParameterExpander()
+        let parameters = await expander.expand(for: objective)
         
         // Step 3: Pattern Discovery (Mocked for now)
         let evidence = await discoverPatterns(for: parameters)
@@ -27,16 +29,6 @@ actor ReasoningPipeline {
             parameters: parameters,
             strategy: strategy
         )
-    }
-    
-    private func normalize(_ text: String) -> String {
-        // AI Logic placeholder: Reframing
-        return "Reframed: \(text)"
-    }
-    
-    private func expandParameters(for objective: String) async -> [Parameter] {
-        // AI Logic placeholder
-        return []
     }
     
     private func discoverPatterns(for params: [Parameter]) async -> [String] {
