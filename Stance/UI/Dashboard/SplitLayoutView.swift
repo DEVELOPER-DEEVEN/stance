@@ -3,29 +3,43 @@ import SwiftUI
 struct SplitLayoutView: View {
     @Query(sort: \Claim.createdAt, order: .reverse) var claims: [Claim]
     @State private var selectedClaim: Claim?
+    @State private var searchText = ""
     @State private var columnVisibility = NavigationSplitViewVisibility.all
     @State private var showNewAnalysis = false
+
+    var filteredClaims: [Claim] {
+        if searchText.isEmpty {
+            return claims
+        } else {
+            return claims.filter { $0.originalText.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             // Sidebar
             List(selection: $selectedClaim) {
                 Section(header: Text("Active Analyses")) {
-                    ForEach(claims) { claim in
+                    ForEach(filteredClaims) { claim in
                         NavigationLink(value: claim) {
                             VStack(alignment: .leading) {
                                 Text(claim.originalText)
                                     .font(.headline)
                                     .lineLimit(1)
+                                    .foregroundColor(StanceTheme.textPrimary)
                                 Text(claim.status.rawValue.capitalized)
                                     .font(.caption)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(StanceTheme.textSecondary)
                             }
                         }
+                        .listRowBackground(StanceTheme.surface)
                     }
                 }
             }
             .navigationTitle("Stance")
+            .searchable(text: $searchText, placement: .sidebar, prompt: "Search Analyses")
+            .scrollContentBackground(.hidden)
+            .background(StanceTheme.background)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: { showNewAnalysis = true }) {
