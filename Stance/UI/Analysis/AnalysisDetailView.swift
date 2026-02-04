@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct AnalysisDetailView: View {
+    let claim: Claim
     @State private var showShareSheet = false
     @State private var pdfURL: URL?
 
@@ -47,6 +48,36 @@ struct AnalysisDetailView: View {
                         Text(reframed)
                             .font(.body)
                             .foregroundColor(StanceTheme.textPrimary)
+                    }
+                    .padding()
+                    .background(StanceTheme.surface)
+                    .cornerRadius(StanceTheme.cornerRadius)
+                }
+                
+                // Headlines
+                if !claim.relatedArticles.isEmpty {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Market Signals")
+                            .font(.headline)
+                            .foregroundColor(StanceTheme.textPrimary)
+                        
+                        ForEach(claim.relatedArticles) { article in
+                            HStack(alignment: .top) {
+                                Image(systemName: "newspaper.fill")
+                                    .foregroundColor(StanceTheme.textSecondary)
+                                VStack(alignment: .leading) {
+                                    Text(article.title)
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(StanceTheme.textPrimary)
+                                    Text(article.source)
+                                        .font(.caption)
+                                        .foregroundColor(StanceTheme.textSecondary)
+                                }
+                            }
+                            .padding(.vertical, 4)
+                            Divider().background(Color.gray.opacity(0.3))
+                        }
                     }
                     .padding()
                     .background(StanceTheme.surface)
