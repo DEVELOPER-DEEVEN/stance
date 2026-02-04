@@ -24,3 +24,9 @@ protocol DataIngestionService {
     /// Fetches semantic correlation signals (e.g., related concepts).
     func fetchCorrelations(for query: String) async throws -> [String]
 }
+
+struct DataPoint: Codable {
+    let date: Date
+    let value: Double
+    let source: String
+}
