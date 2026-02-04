@@ -13,15 +13,6 @@ struct DashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    // Dynamic Island Header
-                    DynamicIslandView(
-                        title: "Stance",
-                        subtitle: "Decision Advocacy",
-                        actionTitle: "Settings",
-                        action: { showSettings = true }
-                    )
-                    .padding(.top, 6)
-                    
                     // Hero Card
                     SpotifyCard(title: "Decision Advocacy", subtitle: "Premium Intelligence") {
                         Text("Convert any position into a defensible, data-backed advantage.")
@@ -79,7 +70,8 @@ struct DashboardView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 20)
+                .padding(.top, 16)
+                .padding(.bottom, 90)
             }
             .background(StanceTheme.background.ignoresSafeArea())
 #if os(iOS)
