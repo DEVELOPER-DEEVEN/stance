@@ -32,8 +32,10 @@ struct OnboardingView: View {
                     action: { isOnboardingComplete = true }
                 )
             }
+#if os(iOS)
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+#endif
         }
     }
 }

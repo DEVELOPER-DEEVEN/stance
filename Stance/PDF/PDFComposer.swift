@@ -1,10 +1,24 @@
 import SwiftUI
 import PDFKit
+#if canImport(AppKit)
+import AppKit
+#endif
 
 @MainActor
 struct PDFComposer {
     
     static func render(claim: Claim) -> URL? {
+#if canImport(UIKit)
+        return renderUIKit(claim: claim)
+#elseif canImport(AppKit)
+        return renderAppKit(claim: claim)
+#else
+        return nil
+#endif
+    }
+
+#if canImport(UIKit)
+    private static func renderUIKit(claim: Claim) -> URL? {
         let pdfMetaData = [
             kCGPDFContextCreator: "Stance Intelligence",
             kCGPDFContextAuthor: "Stance App",
@@ -94,7 +108,34 @@ struct PDFComposer {
         
         return save(data: data, title: "StanceReport-\(claim.id).pdf")
     }
-    
+#endif
+
+#if canImport(AppKit)
+    private static func renderAppKit(claim: Claim) -> URL? {
+        var mediaBox = CGRect(x: 0, y: 0, width: 612, height: 792)
+        let url = saveURL(title: "StanceReport-\(claim.id).pdf")
+        guard let context = CGContext(url as CFURL, mediaBox: &mediaBox, nil) else { return nil }
+        context.beginPDFPage(nil)
+        
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: NSFont.systemFont(ofSize: 24, weight: .bold)
+        ]
+        let title = "Advocacy Report"
+        title.draw(at: CGPoint(x: 50, y: mediaBox.height - 60), withAttributes: titleAttributes)
+        
+        let claimAttributes: [NSAttributedString.Key: Any] = [
+            .font: NSFont.systemFont(ofSize: 18),
+            .foregroundColor: NSColor.darkGray
+        ]
+        claim.originalText.draw(at: CGPoint(x: 50, y: mediaBox.height - 110), withAttributes: claimAttributes)
+        
+        context.endPDFPage()
+        context.closePDF()
+        
+        return url
+    }
+#endif
+
     private static func save(data: Data, title: String) -> URL? {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let docDirectory = paths[0]
@@ -107,5 +148,10 @@ struct PDFComposer {
             print("PDF Save Error: \(error)")
             return nil
         }
+    }
+
+    private static func saveURL(title: String) -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0].appendingPathComponent(title)
     }
 }
