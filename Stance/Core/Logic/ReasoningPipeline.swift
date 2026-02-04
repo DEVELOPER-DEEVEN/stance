@@ -7,9 +7,12 @@ actor ReasoningPipeline {
     // private let ingestionService: DataIngestionService
     
     func analyze(claim: Claim) async throws -> AnalysisResult {
-        // Step 1: Normalization
-        let normalizer = ClaimNormalizer()
-        let objective = normalizer.normalize(claim.originalText)
+        // Step 1: Normalization & Reframing
+        let reframer = LLMReframer()
+        let objective = await reframer.reframe(claim: claim.originalText)
+        
+        // Update the claim model directly
+        claim.reframedText = objective
         
         // Step 2: Parameter Expansion
         let expander = ParameterExpander()
