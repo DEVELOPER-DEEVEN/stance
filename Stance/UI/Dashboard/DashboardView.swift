@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 struct DashboardView: View {
     @Query(sort: \Claim.createdAt, order: .reverse) var claims: [Claim]
