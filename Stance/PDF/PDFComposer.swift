@@ -52,7 +52,12 @@ struct PDFComposer {
             for evidence in claim.evidence.prefix(5) {
                 let line = "• \(evidence.description) (Confidence: \(Int(evidence.confidence * 100))%)"
                 line.draw(at: CGPoint(x: 60, y: yOffset), withAttributes: bodyAttributes)
-                yOffset += 20
+                
+                // Draw Chart
+                let chartRect = CGRect(x: 60, y: yOffset + 20, width: 300, height: 80)
+                ChartRenderer().render(evidence: evidence, in: chartRect, context: context.cgContext)
+                
+                yOffset += 120 // Space for text + chart
             }
             
             // Draw Disclaimer
