@@ -1,0 +1,25 @@
+name: Stance
+options:
+  bundleIdPrefix: com.deeven
+settings:
+  base:
+    INFOPLIST_FILE: Stance/Info.plist
+targets:
+  Stance-macOS:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Stance
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.deeven.stance
+      PRODUCT_NAME: Stance
+  Stance-iOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Stance
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.deeven.stance.ios
+      PRODUCT_NAME: Stance
