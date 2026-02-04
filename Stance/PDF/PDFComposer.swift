@@ -60,6 +60,20 @@ struct PDFComposer {
                 yOffset += 120 // Space for text + chart
             }
             
+            // Draw Strategy
+            if let strategy = claim.strategy {
+                let strategyTitle = "Strategic Recommendation:"
+                strategyTitle.draw(at: CGPoint(x: 50, y: yOffset + 10), withAttributes: headerAttributes)
+                
+                let strategyRect = CGRect(x: 50, y: yOffset + 30, width: pageWidth - 100, height: 80)
+                strategy.draw(in: strategyRect, withAttributes: bodyAttributes)
+                yOffset += 120
+            }
+            
+            // Draw Confidence
+            let confidenceLine = "Advocacy Strength: \(Int(claim.confidenceScore * 100))%"
+            confidenceLine.draw(at: CGPoint(x: 50, y: yOffset + 10), withAttributes: bodyAttributes)
+            
             // Draw Methodology
             if let method = claim.methodology {
                 let methodTitle = "Methodology & Assumptions:"
