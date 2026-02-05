@@ -50,7 +50,6 @@ struct VisionInsightsView: View {
                 }
                 .padding(24)
             }
-            .visionBottomInset(140)
         }
     }
 }

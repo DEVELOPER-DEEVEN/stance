@@ -52,7 +52,6 @@ struct VisionMethodologyView: View {
                 }
                 .padding(24)
             }
-            .visionBottomInset(140)
         }
     }
 }

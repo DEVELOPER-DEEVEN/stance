@@ -78,7 +78,6 @@ struct VisionInputView: View {
                 }
                 .padding(24)
             }
-            .visionBottomInset(140)
         }
     }
 }

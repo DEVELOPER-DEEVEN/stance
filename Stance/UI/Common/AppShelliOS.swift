@@ -19,7 +19,10 @@ struct AppShelliOS: View {
                     VisionSettingsView()
                 }
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
+            .safeAreaInset(edge: .bottom) {
+                Color.clear.frame(height: 120)
+            }
+            .overlay(alignment: .bottom) {
                 BottomBar(selection: $selection)
                     .padding(.bottom, 8)
             }

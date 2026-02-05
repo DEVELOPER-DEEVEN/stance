@@ -19,7 +19,6 @@ struct VisionReportsView: View {
                 }
                 .padding(24)
             }
-            .visionBottomInset(140)
         }
     }
 }
